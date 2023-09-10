@@ -35,4 +35,25 @@ func main() {
 	h := slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{Level: programLevel})
 	slog.SetDefault(slog.New(h))
 	programLevel.Set(slog.LevelDebug)
+
+	//グループ
+	logger.Info(
+		"nest",
+		slog.Int("count", 7),
+		slog.Group("Group1",
+			slog.Int("key1", 1000),
+			slog.Int("key2", 2000),
+		),
+	)
+	type Users struct {
+		name string
+		age int
+	}
+	user1 := Users{
+		name : "hogehoge",
+		age : 20,
+	}
+	logger = slog.New(slog.NewTextHandler(os.Stderr, nil))
+	logger.Info("users","data", user1)
+	
 }
